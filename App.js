@@ -98,8 +98,12 @@ const App: () => Node = () => {
             onPress={async () => {
                 // With this button press, badRequest fails and throws
                 // an exception so the app doesn't display anything different.
-                const res = await NetworkService.badRequest();
-                setText(res);
+                try {
+                  const res = await NetworkService.badRequest();
+                  setText(res);
+                } catch (err) {
+                  console.error("Error on button press " + err);
+                }
               }
             }
           />
