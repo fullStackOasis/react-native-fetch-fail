@@ -94,7 +94,7 @@ const App: () => Node = () => {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
             padding: 2
           }}>
-          <Button title="send invalid request"
+          <Button title="send invalid request use await"
             onPress={async () => {
                 // With this button press, badRequest fails and throws
                 // an exception so the app doesn't display anything different.
@@ -105,6 +105,38 @@ const App: () => Node = () => {
                   console.error("Error on button press " + err);
                   setText("Sorry, there was an error with your request");
                 }
+              }
+            }
+          />
+        </View>
+        <View style={{
+            backgroundColor: isDarkMode ? Colors.black : Colors.white,
+            padding: 2
+          }}>
+          <Button title="send invalid request use .catch"
+            onPress={async () => {
+                // With this button press, badRequest fails and throws
+                // an exception so the app doesn't display anything different.
+                NetworkService.badRequest().then(res => {
+                  setText(res);
+                }).catch(err => {
+                  setText("Sorry, there was an error with your request. It was caught using .catch");
+                });
+              }
+            }
+          />
+        </View>
+        <View style={{
+            backgroundColor: isDarkMode ? Colors.black : Colors.white,
+            padding: 2
+          }}>
+          <Button title="send invalid request no .catch"
+            onPress={async () => {
+                // With this button press, badRequest fails and throws
+                // an exception so the app doesn't display anything different.
+                NetworkService.badRequest().then(res => {
+                  setText(res);
+                });
               }
             }
           />
