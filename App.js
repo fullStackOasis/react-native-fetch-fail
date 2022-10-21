@@ -103,6 +103,7 @@ const App: () => Node = () => {
                   setText(res);
                 } catch (err) {
                   console.error("Error on button press " + err);
+                  setText("Sorry, there was an error with your request");
                 }
               }
             }
