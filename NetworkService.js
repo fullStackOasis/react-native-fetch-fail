@@ -55,7 +55,7 @@ const fetchData = async ({ url, payload, headers, method, source }) => {
     const res = await fetchData({
         url: "https://dsjkdjskdjskdusidj.com/edsewiofsk/",
         payload: JSON.stringify({ payload: payload }),
-        source: payload.source
+        source: payload?.source
     });
     if (res && res.user) {
         return Promise.resolve(res);
