@@ -6,8 +6,10 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useState } from 'react';
+import { Button } from 'react-native';
 import type {Node} from 'react';
+import NetworkService from './NetworkService';
 import {
   SafeAreaView,
   ScrollView,
@@ -55,6 +57,7 @@ const Section = ({children, title}): Node => {
 };
 
 const App: () => Node = () => {
+  const [text, setText] = useState("Initial state");
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -66,8 +69,8 @@ const App: () => Node = () => {
    * @returns text to display in Step One area
    */
   const getText = () => {
-    return "Initial state";
-  }
+    return text;
+  };
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -86,6 +89,32 @@ const App: () => Node = () => {
           <Section title="Step One">
             {getText()}
           </Section>
+        </View>
+        <View style={{
+            backgroundColor: isDarkMode ? Colors.black : Colors.white,
+            padding: 2
+          }}>
+          <Button title="send invalid request"
+            onPress={async () => {
+                // With this button press, badRequest fails and throws
+                // an exception so the app doesn't display anything different.
+                const res = await NetworkService.badRequest();
+                setText(res);
+              }
+            }
+          />
+        </View>
+        <View style={{
+            backgroundColor: isDarkMode ? Colors.black : Colors.white,
+            padding: 2
+          }}>
+          <Button title="send valid request"
+            onPress={async () => {
+              const res = await NetworkService.goodRequest();
+              setText(JSON.stringify(res));
+            }
+          }
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
